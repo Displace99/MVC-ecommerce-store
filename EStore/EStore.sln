@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EStore.Domain", "EStore.Domain\EStore.Domain.csproj", "{06CEEF4F-EBB0-456C-AEAD-E4D817F2EA0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EStore.WebUI", "EStore.WebUI\EStore.WebUI.csproj", "{C5EDC3E4-BE54-4240-B885-C57AE4DF7497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EStore.UnitTests", "EStore.UnitTests\EStore.UnitTests.csproj", "{A9DB541D-BB19-445F-8739-0925F0BD9700}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06CEEF4F-EBB0-456C-AEAD-E4D817F2EA0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06CEEF4F-EBB0-456C-AEAD-E4D817F2EA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06CEEF4F-EBB0-456C-AEAD-E4D817F2EA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06CEEF4F-EBB0-456C-AEAD-E4D817F2EA0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EDC3E4-BE54-4240-B885-C57AE4DF7497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EDC3E4-BE54-4240-B885-C57AE4DF7497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EDC3E4-BE54-4240-B885-C57AE4DF7497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EDC3E4-BE54-4240-B885-C57AE4DF7497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DB541D-BB19-445F-8739-0925F0BD9700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DB541D-BB19-445F-8739-0925F0BD9700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DB541D-BB19-445F-8739-0925F0BD9700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DB541D-BB19-445F-8739-0925F0BD9700}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
