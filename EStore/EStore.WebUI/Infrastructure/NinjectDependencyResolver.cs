@@ -11,6 +11,7 @@ using Ninject;
 using Moq;
 using EStore.Domain.Abstract;
 using EStore.Domain.Entities;
+using EStore.Domain.Concrete;
 
 namespace EStore.WebUI.Infrastructure
 {
@@ -37,16 +38,19 @@ namespace EStore.WebUI.Infrastructure
         private void AddBindings()
         {
             //Creates a mock object of the Product Repository to test until we get the database set up
-            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
-            mock.Setup(m => m.Products).Returns(new List<Product>
-            {
-                new Product {Name = "Football", Price = 25},
-                new Product {Name = "Surfboard", Price = 179},
-                new Product {Name = "Running shoes", Price = 95}
-            });
+            //Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+            //mock.Setup(m => m.Products).Returns(new List<Product>
+            //{
+            //    new Product {Name = "Football", Price = 25},
+            //    new Product {Name = "Surfboard", Price = 179},
+            //    new Product {Name = "Running shoes", Price = 95}
+            //});
 
             //This binds and returns the mocked object whenever a request for an implementation of the IProductRepository is made.
-            kernel.Bind<IProductsRepository>().ToConstant(mock.Object);
+            //kernel.Bind<IProductsRepository>().ToConstant(mock.Object);
+
+            //This binds the IProductRepository to the EFProductRepository
+            kernel.Bind<IProductsRepository>().To<EFProductRepository>();
         }
         
     }
