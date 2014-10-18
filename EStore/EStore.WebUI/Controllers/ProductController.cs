@@ -11,15 +11,19 @@ namespace EStore.WebUI.Controllers
     public class ProductController : Controller
     {
         private IProductsRepository repository;
+        public int PageSize = 4;
 
         public ProductController(IProductsRepository repo)
         {
             this.repository = repo;
         }
 
-        public ViewResult List()
+        public ViewResult List(int page = 1)
         {
-            return View(repository.Products);
+            //return View(repository.Products);
+            
+            //This handles the paging request.  
+            return View(repository.Products.OrderBy(p => p.ProductID).Skip((page - 1) * PageSize).Take(PageSize));
         }
       
 	}
