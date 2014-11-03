@@ -17,6 +17,32 @@ namespace EStore.UnitTests
     public class UnitTest1
     {
         [TestMethod]
+        public void Can_Create_Categories()
+        {
+            //Arrange
+            // - Create the mock repository
+            Mock<IProductsRepository> mockRepo = new Mock<IProductsRepository>();
+            mockRepo.Setup(m => m.Products).Returns(new Product[]{
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 2, Name = "P2", Category = "Apples"},
+                new Product {ProductID = 3, Name = "P3", Category = "Plums"},
+                new Product {ProductID = 4, Name = "P4", Category = "Oranges"}
+            });
+
+            //Arrange (create the controller)
+            NavController controller = new NavController(mockRepo.Object);
+
+            //Act - get the set of categories
+            string[] results = ((IEnumerable<string>)controller.Menu().Model).ToArray();
+
+            //Assert
+            Assert.AreEqual(results.Length, 3);
+            Assert.AreEqual(results[0], "Apples");
+            Assert.AreEqual(results[1], "Oranges");
+            Assert.AreEqual(results[2], "Plums");
+        }
+
+        [TestMethod]
         public void Can_Paginate()
         {
             //Arrange
