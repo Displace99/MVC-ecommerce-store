@@ -17,6 +17,39 @@ namespace EStore.UnitTests
     public class UnitTest1
     {
         [TestMethod]
+        public void Generate_Category_Specific_Product_Count()
+        {
+            //Arrange
+            //Create the mock repository
+            Mock<IProductsRepository> mockRepo = new Mock<IProductsRepository>();
+            mockRepo.Setup(m => m.Products).Returns(new Product[]{
+                new Product {ProductID = 1, Name = "P1", Category = "Cat1"},
+                new Product {ProductID = 1, Name = "P2", Category = "Cat2"},
+                new Product {ProductID = 1, Name = "P3", Category = "Cat1"},
+                new Product {ProductID = 1, Name = "P4", Category = "Cat2"},
+                new Product {ProductID = 1, Name = "P5", Category = "Cat3"},
+            });
+
+            //Arrange
+            //Create the controller
+            ProductController controller = new ProductController(mockRepo.Object);
+            controller.PageSize = 3;
+
+            //Act
+            //Test the products for different categories
+            int result1 = ((ProductListViewModel)controller.List("Cat1").Model).PagingInfo.TotalItems;
+            int result2 = ((ProductListViewModel)controller.List("Cat2").Model).PagingInfo.TotalItems;
+            int result3 = ((ProductListViewModel)controller.List("Cat3").Model).PagingInfo.TotalItems;
+            int resultAll = ((ProductListViewModel)controller.List(null).Model).PagingInfo.TotalItems;
+
+            //Assert
+            Assert.AreEqual(result1, 2);
+            Assert.AreEqual(result2, 2);
+            Assert.AreEqual(result3, 1);
+            Assert.AreEqual(resultAll, 5);
+        }
+
+        [TestMethod]
         public void Indicates_Selected_Category()
         {
             //Arrange
