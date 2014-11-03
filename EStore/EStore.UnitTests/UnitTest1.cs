@@ -17,6 +17,29 @@ namespace EStore.UnitTests
     public class UnitTest1
     {
         [TestMethod]
+        public void Indicates_Selected_Category()
+        {
+            //Arrange
+            //Creates the mock repository
+            Mock<IProductsRepository> mockRepo = new Mock<IProductsRepository>();
+            mockRepo.Setup(m => m.Products).Returns(new Product[]{
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 4, Name = "P4", Category = "Oranges"},
+            });
+
+            //Arrange
+            NavController controller = new NavController(mockRepo.Object);
+
+            string categoryToSelect = "Apples";
+
+            //Act
+            string result = controller.Menu(categoryToSelect).ViewBag.SelectedCategory;
+
+            //Assert
+            Assert.AreEqual(categoryToSelect, result);
+        }
+
+        [TestMethod]
         public void Can_Create_Categories()
         {
             //Arrange
