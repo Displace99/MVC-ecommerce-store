@@ -66,6 +66,11 @@ namespace EStore.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
+        }
+
         //Gets current cart from session state. //No longer needed b/c we are now using model binding.
         //private Cart GetCart()
         //{
