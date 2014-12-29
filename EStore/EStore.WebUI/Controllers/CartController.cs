@@ -19,17 +19,18 @@ namespace EStore.WebUI.Controllers
         }
 
         //Get
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View (new CartIndexViewModel{
-                Cart = GetCart(),
-                ReturnUrl = returnUrl
+                //Cart = GetCart(),
+                ReturnUrl = returnUrl,
+                Cart = cart
             });
         }
 
         //Adds an item to the cart and shows shopping cart page.
         [HttpPost]
-        public RedirectToRouteResult AddToCart(int productID, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productID, string returnUrl)
         {
             //Finds the product by the product id.
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);
@@ -37,7 +38,8 @@ namespace EStore.WebUI.Controllers
             //Integrity check.  If the item exists then add one to the cart, otherwise do nothing.
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                //GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
 
             //Send user to the shopping cart with a return url of where they were when they
@@ -47,7 +49,7 @@ namespace EStore.WebUI.Controllers
 
         //Removes an item from the cart and shows the shopping cart page.
         [HttpPost]
-        public RedirectToRouteResult RemoveFromCart(int productID, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productID, string returnUrl)
         {
             //Finds the product by the product id.
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);
@@ -55,7 +57,8 @@ namespace EStore.WebUI.Controllers
             //Integrity check.  If the item exists the remove, otherwise do nothing.
             if (product != null)
             {
-                GetCart().RemoveLine(product);
+                //GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
 
             //Sends user to the shopping cart page with a return url of where they were when they
@@ -63,21 +66,21 @@ namespace EStore.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        //Gets current cart from session state.
-        private Cart GetCart()
-        {
-            //Gets cart from session state
-            Cart cart = (Cart)Session["Cart"];
+        //Gets current cart from session state. //No longer needed b/c we are now using model binding.
+        //private Cart GetCart()
+        //{
+        //    //Gets cart from session state
+        //    Cart cart = (Cart)Session["Cart"];
 
-            //If there is no cart object in session state create one and 
-            //save it to session state.
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
+        //    //If there is no cart object in session state create one and 
+        //    //save it to session state.
+        //    if (cart == null)
+        //    {
+        //        cart = new Cart();
+        //        Session["Cart"] = cart;
+        //    }
 
-            return cart;
-        }
+        //    return cart;
+        //}
 	}
 }
