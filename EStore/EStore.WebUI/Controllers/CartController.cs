@@ -71,6 +71,11 @@ namespace EStore.WebUI.Controllers
             return PartialView(cart);
         }
 
+        public ViewResult Checkout()
+        {
+            return View(new ShippingDetails());
+        }
+
         //Gets current cart from session state. //No longer needed b/c we are now using model binding.
         //private Cart GetCart()
         //{
