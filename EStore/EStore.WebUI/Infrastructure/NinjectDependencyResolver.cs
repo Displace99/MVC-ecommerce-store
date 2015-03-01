@@ -4,6 +4,7 @@
 //Abstract: This is our customer dependency resolver.  It was taken from the book Pro ASP.NET MVC 5 from Apress (with permission)
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,6 +52,16 @@ namespace EStore.WebUI.Infrastructure
 
             //This binds the IProductRepository to the EFProductRepository
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
+
+            //Pulls "write as file" value from app settings. If null, sets to false.
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+
+            //Binds the interface with the class and passes in settings from above.
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
+                .WithConstructorArgument("settings", emailSettings);
         }
         
     }
