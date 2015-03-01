@@ -78,6 +78,27 @@ namespace EStore.WebUI.Controllers
             return View(new ShippingDetails());
         }
 
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        {
+            //If there is nothing in the cart, do not let them checkout.
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetails);
+            }
+        }
+
         //Gets current cart from session state. //No longer needed b/c we are now using model binding.
         //private Cart GetCart()
         //{
