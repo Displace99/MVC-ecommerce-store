@@ -179,5 +179,88 @@ namespace EStore.UnitTests
             Assert.AreSame(result.Cart, cart);
             Assert.AreEqual(result.ReturnUrl, "myUrl");
         }
+
+        [TestMethod]
+        public void Cannot_Checkout_Empty_Cart()
+        {
+            //Arrange - create a mock order processor
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            //Arrange - Create an empty Cart
+            Cart cart = new Cart();
+
+            //Arrange = Create shipping details
+            ShippingDetails shippingDetails = new ShippingDetails();
+
+            //Arrange - Create an instance of the controller
+            CartController target = new CartController(null, mock.Object);
+
+            //Act
+            ViewResult result = target.Checkout(cart, shippingDetails);
+
+            //Assert - Check that the order hasn't been passed on to the processor
+            mock.Verify(x => x.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never());
+
+            //Assert - Check that the method is returning the default view
+            Assert.AreEqual("", result.ViewName);
+
+            //Assert - Check that I am passing an invalid model to the view
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
+
+        [TestMethod]
+        public void Cannot_Checkout_Invalid_ShippingDetails()
+        {
+            //Arrange - create a mock order processor
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            //Arrange - create a cart with an item
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+
+            //Arrange - create an instance of the controller
+            CartController target = new CartController(null, mock.Object);
+
+            //Arrange - add an error to the model
+            target.ModelState.AddModelError("error", "error");
+
+            //Act - Try to checkout
+            ViewResult result = target.Checkout(cart, new ShippingDetails());
+
+            //Assert - Check that the order hasn't been passed on to the processor
+            mock.Verify(x => x.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never());
+
+            //Assert - Check that the method is returnign the default view
+            Assert.AreEqual("", result.ViewName);
+
+            //Assert - Check that I am passing an invalid model to the view.
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
+
+        [TestMethod]
+        public void Can_Checkout_And_Submit_Order()
+        {
+            //Arrange - Create a mock order processor
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            //Arrange - Create a cart with an item
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+
+            //Arrange - create an instance of the controller.
+            CartController target = new CartController(null, mock.Object);
+
+            //Act - Try to checkout
+            ViewResult result = target.Checkout(cart, new ShippingDetails());
+
+            //Assert - Check that the order has been passed on to the processor
+            mock.Verify(x => x.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once());
+
+            //Assert - Check that the method is returning the Completed View
+            Assert.AreEqual("Completed", result.ViewName);
+
+            //Assert - Check that I am passing a valid model to the view
+            Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
+        }
     }
 }
