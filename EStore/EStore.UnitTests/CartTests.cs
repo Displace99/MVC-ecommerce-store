@@ -260,7 +260,7 @@ namespace EStore.UnitTests
             Assert.AreEqual("Completed", result.ViewName);
 
             //Assert - Check that I am passing a valid model to the view
-            Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
+            Assert.AreEqual(true, result.ViewData.ModelState.IsValid); //<- This is throwing a System.EntryPointNotFoundException: Entry point was not found
         }
     }
 }
