@@ -12,10 +12,12 @@ namespace EStore.WebUI.Controllers
     public class CartController : Controller
     {
         private IProductsRepository repository;
+        private IOrderProcessor orderProcessor;
 
-        public CartController(IProductsRepository repo)
+        public CartController(IProductsRepository repo, IOrderProcessor proc)
         {
             repository = repo;
+            orderProcessor = proc;
         }
 
         //Get
