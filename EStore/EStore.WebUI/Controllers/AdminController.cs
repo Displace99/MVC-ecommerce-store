@@ -18,7 +18,7 @@ namespace EStore.WebUI.Controllers
 
         //
         // GET: /Admin/
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View(repository.Products);
         }
