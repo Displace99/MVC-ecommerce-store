@@ -85,5 +85,52 @@ namespace EStore.UnitTests
             //Assert
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void Cann_Save_Valid_Changes()
+        {
+            //Arrange - Create mock repository
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+
+            //Arrange - Create the controller
+            AdminController target = new AdminController(mock.Object);
+
+            //Arrange - Create a Product
+            Product product = new Product { Name = "Test" };
+
+            //Act - Try to save the product
+            ActionResult result = target.Edit(product);
+
+            //Assert - Check if the repository was called
+            mock.Verify(m => m.SaveProduct(product));
+
+            //Assert - Check the method result type
+            Assert.IsNotInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            //Arrange - Create mock repository
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+
+            //Arrange - Create the controller
+            AdminController target = new AdminController(mock.Object);
+
+            //Arrange - Create a Product
+            Product product = new Product { Name = "Test" };
+
+            //Arrange - Add an error to the model state
+            target.ModelState.AddModelError("error", "error");
+
+            //Act - try to save the product
+            ActionResult result = target.Edit(product);
+
+            //Assert - Check that the repository was not called
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+
+            //Assert - Check the method result
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
     }
 }
