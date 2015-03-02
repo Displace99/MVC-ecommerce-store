@@ -49,5 +49,12 @@ namespace EStore.WebUI.Controllers
                 return View(product);
             }
         }
+
+        //
+        // GET: /Admin/Create/
+        public ViewResult Create()
+        {
+            return View("Edit", new Product());
+        }
 	}
 }
