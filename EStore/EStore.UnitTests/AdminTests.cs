@@ -132,5 +132,29 @@ namespace EStore.UnitTests
             //Assert - Check the method result
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
+
+        [TestMethod]
+        public void Can_Delete_Valid_Products()
+        {
+            //Arrange - Create a Product
+            Product prod = new Product { ProductID = 2, Name = "Test" };
+
+            //Arrange - Create the mock repository
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]{
+                new Product {ProductID = 1, Name = "P1"}, 
+                prod,
+                new Product { ProductID = 3, Name = "P3"},
+            });
+
+            //Arrange - Create the controller
+            AdminController target = new AdminController(mock.Object);
+
+            //Act - Delete the product
+            target.Delete(prod.ProductID);
+
+            //Assert - Ensure that the repository delete method was called with the correct Product
+            mock.Verify(m => m.DeleteProduct(prod.ProductID));
+        }
     }
 }
