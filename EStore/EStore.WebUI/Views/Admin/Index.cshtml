@@ -1,0 +1,69 @@
+﻿@model IEnumerable<EStore.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>All Products</h3>
+    </div>
+    <div class="panel-body">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <table class="table table-striped table-condensed table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.ProductID
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Name, "Edit", new { item.ProductID})
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @item.Price.ToString("c")
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "Admin"))
+                            {
+                                @Html.Hidden("ProductID", item.ProductID)
+                                <input type="submit" class="btn btn-danger btn-xs" value="Delete" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-success" })
+    </div>
+</div>
