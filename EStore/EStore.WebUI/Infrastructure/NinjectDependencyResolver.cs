@@ -13,6 +13,8 @@ using Moq;
 using EStore.Domain.Abstract;
 using EStore.Domain.Entities;
 using EStore.Domain.Concrete;
+using EStore.WebUI.Infrastructure.Abstract;
+using EStore.WebUI.Infrastructure.Concrete;
 
 namespace EStore.WebUI.Infrastructure
 {
@@ -62,6 +64,8 @@ namespace EStore.WebUI.Infrastructure
             //Binds the interface with the class and passes in settings from above.
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
                 .WithConstructorArgument("settings", emailSettings);
+
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
         
     }
