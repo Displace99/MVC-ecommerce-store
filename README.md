@@ -1,24 +1,34 @@
 MVC-ecommerce-store
 ===================
 
-This is a basic e-Commerce store in ASP.NET MVC 5
+This is a basic e-Commerce store in ASP.NET MVC 5, from the tutorials in Pro ASP.NET MVC 5 by Apress.  
 
-In my quest to learn ASP.NET MVC I began by reading Pro ASP.NET MVC 5 by Apress.  
+This project was created as a way of learning ASP.NET MVC, and because I love online retail. As the book's focus is on the ASP.NET MVC framework there are no advanced features or coding yet.  For example, the only JavaScript included in the project is from the Bootstrap framework.  
 
-This project is the sample "real world" application that the author walks you through.  It is a basic e-Commerce site and includes the following features:
+It is, however, my intention to evolve this into a program that someone can actually use.  
 
-	*Online Product Catalog
-	*A shopping cart
-	*A checkout page
-	*and an administrative section to manage the catalog.
+##Application Information
+This project is the sample "real world" application that the author walks you through.  It is a __VERY__ basic e-Commerce site and includes the following features:
 
+* Online Product Catalog
+* A shopping cart
+* A checkout page
+* An administrative section to manage the catalog.
+
+
+##Core Future Improvements
 There is a lot missing from this as it's a walkthrough application.  Some of the core features it is missing are:
 
-	*Payment processing
-	*Order fulfillment
-	*Analytics
-	*Customer accounts (with history)
-	*A Customer Service back end (for dealing with any type of problems)
-	*Product promotions
-	
-It is my intention that these additional features will be added to future releases.  
+* Site Security (Admin accounts)
+* Product Detail Page
+* Payment processing
+* Order fulfillment
+* Analytics
+* Customer accounts (with history)
+* A Customer Service back end (for dealing with any type of problems)
+* Product promotions
+
+##Additional Future Improvements
+* Product Categories
+* Product Variences
+* An actual theme
