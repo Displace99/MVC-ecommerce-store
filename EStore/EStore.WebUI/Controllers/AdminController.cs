@@ -8,6 +8,7 @@ using EStore.Domain.Entities;
 
 namespace EStore.WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductsRepository repository;
