@@ -32,3 +32,4 @@ There is a lot missing from this as it's a walkthrough application.  Some of the
 * Product Categories
 * Product Variences
 * An actual theme
+* Other future improvements
