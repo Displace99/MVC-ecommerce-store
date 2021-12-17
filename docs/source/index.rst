@@ -5,12 +5,13 @@
 
 Welcome to EStore's documentation!
 ==================================
+This is sample documentation to go along with the EStore demo app.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+   getting-started/index.rst
 
 Indices and tables
 ==================
